@@ -1,0 +1,24 @@
+{
+  "name": "email-sync-service",
+  "version": "1.0.0",
+  "description": "Node.js service to sync emails from IMAP to database",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "sync": "node sync-emails.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.50.3",
+    "imapflow": "^1.0.189",
+    "mailparser": "^3.7.4",
+    "node-cron": "^3.0.3",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  },
+  "keywords": ["email", "imap", "sync", "supabase"],
+  "author": "",
+  "license": "ISC"
+}
