@@ -14,20 +14,30 @@ const supabase = createClient(
  */
 async function getUsersWithEmailCredentials() {
   try {
-    const { data: users, error } = await supabase
+    // First try with public.users table
+    let { data: users, error } = await supabase
       .from('user_email_credentials')
       .select(`
         *,
         users (
           id,
-          email,
-          name
+          email
         )
       `);
 
+    // If that fails, try without the join
     if (error) {
-      console.error('Error fetching users with email credentials:', error);
-      return [];
+      console.log('Trying without users join...');
+      const { data: credentials, error: credError } = await supabase
+        .from('user_email_credentials')
+        .select('*');
+      
+      if (credError) {
+        console.error('Error fetching user_email_credentials:', credError);
+        return [];
+      }
+      
+      return credentials || [];
     }
 
     return users || [];
